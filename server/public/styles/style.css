@@ -9,3 +9,16 @@
 .index-point-active {
     background-color: red;
 }
+
+.nav-button{
+    display: inline-block;
+    
+}
+#displayInfo{
+
+    margin:25px 0px;
+}
+.jumbotron{
+
+    text-align: center;
+}

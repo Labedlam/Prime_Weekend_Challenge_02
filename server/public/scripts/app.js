@@ -36,8 +36,9 @@ $(document).ready(function(){
 function createCarousel(data){
    $("#zeta").append("<div class='main'></div>");
     var $el = $("#zeta").children().last();
-    createNavButtons($el);
+
     createIndexPoints(data,$el);
+    createNavButtons($el);
 }
 
 function nextSlide(){
@@ -47,7 +48,6 @@ function nextSlide(){
     };
 
     updateIndexPoints();
-    createContent();
     updateContent();
 }
 
@@ -58,21 +58,22 @@ function prevSlide(){
     };
 
     updateIndexPoints();
-   createContent();
+
     updateContent();
 
 }
 
 function createNavButtons($el){
-    $el.append("<div id='prev' class='nav-button'>Prev</div>");
-    $el.append("<div id='next' class='nav-button'>Next</div>");
+    $el.append("<div id='next' class='nav-button btn-primary'>Next</div>");
+    $el.prepend("<div id='prev' class='nav-button btn-primary'>Prev</div>");
+
 
 }
 
 function createIndexPoints(data, $el){
     for(var i = 0; i < data.length; i++){
         console.log(zetaInfo);
-        $el.prepend("<div class='index-point' id='index"+i+"'></div>");
+        $el.append("<div class='index-point' id='index"+i+"'></div>");
     };
 }
 
@@ -88,15 +89,15 @@ function updateIndexPoints(){
 
 function createContent() {
 
-    $(".main").append(zetaInfo[indexTracker]);
+    $("#displayInfo").append(zetaInfo[indexTracker]);
 
-    var el = "<div class='teamMemberDisplay"+[indexTracker]+"'>" +
+    var el = "<div class='teamMemberDisplay"+[indexTracker]+" well'>" +
         "<div>Name:" + zetaInfo[indexTracker].name + "</div>" +
         "<div>Github: <a href='" + zetaInfo[indexTracker].github + "'>" + zetaInfo[indexTracker].github + "</a></div>" +
         "<div>Shout Out:' " + zetaInfo[indexTracker].shoutout + "'</div>"
 
     "</div>";
-    $(".main").append(el);
+    $("#displayInfo").append(el);
 }
 
 function updateContent(){
@@ -113,27 +114,17 @@ function updateContent(){
             type: "GET",
             url : "/data",
             success: function(data){
-
-
                 zetaInfo=data.zeta;
-
-
                 createCarousel(zetaInfo);
                 createContent( );
-                //updateContent();
+
                 updateIndexPoints();
                 $("#next").on('click', nextSlide);
                 $("#prev").on('click', prevSlide);
 
-
-
                 console.log("round trip complete");
-
-
             }
-
         });
-
     }
 
 
